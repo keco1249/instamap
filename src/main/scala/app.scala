@@ -17,10 +17,20 @@ object Application extends App {
 trait RestAPIService extends HttpService {
 
   val route = {
-    (path("hub") & get) {
-      parameter("hub.challenge") { challenge: String =>
-        complete {
-          challenge
+    path("hub") {
+      get {
+        parameter("hub.challenge") { challenge: String =>
+          complete {
+            challenge
+          }
+        }
+      }~
+      post {
+        entity(as[String]) { request =>
+          println(request)
+          complete {
+            "OK"
+          }
         }
       }
     }
